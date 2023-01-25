@@ -9,4 +9,13 @@ function prima(angka) {
   return angka + ' bilangan prima';
 }
 
-console.log(prima(17));
+//console.log(prima(12));
+
+let coba = document.querySelector('#para');
+let inputangka = document.querySelector('#number');
+let btnprima = document.querySelector('.tombol');
+
+btnprima.addEventListener('click', function () {
+  let hasil = Number(inputangka.value);
+  coba.innerHTML = prima(hasil);
+});
