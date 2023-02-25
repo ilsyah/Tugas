@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produk Dummy JSON</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="script.js" async></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container mt-3">
+      <h1 class="text-center text-dark">Axios Dummy JSON</h1>
+      <hr />
+      <div class="text-center">
+        <h1 class="text-center">Data Barang-Barang</h1>
+        <button type="button" class="btn btn-primary all" onclick="allproduk()">Semua Produk</button>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal1">Cari Satu Produk</button>
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2">Cari Kategori</button>
+        <br />
+        <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal3">Tambah Produk</button>
+        <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal5">Hapus Produk</button>
+      </div>
+      <div class="mt-5 text-center">
+        <h1>Data Para Pelanggan</h1>
+        <button type="button" class="btn btn-primary plgn" onclick="allplgn()">Semua Pelanggan</button>
+        <button type="button" class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal6">Tambah Pelanggan</button>
+      </div>
+      <div id="cart"></div>
+      <div id="tampil" class="text-start"></div>
+    </div>
+
+    <!-- Modal One Produk -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Pilih Id Yang Akan Dicari</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <select class="form-select" aria-label="Default select example" id="id">
+              <option selected disabled hidden>Pilih Id</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success one" data-bs-dismiss="modal" onclick="produk1()">Cari</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Kategori-->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Pilih Kategori Yang Akan Dicari</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <select class="form-select" aria-label="Default select example" id="select">
+              <option selected disabled hidden>Pilih Category</option>
+              <option value="smartphones">Smartphones</option>
+              <option value="laptops">Laptops</option>
+              <option value="fragrances">Fragrances</option>
+              <option value="skincare">Skincare</option>
+              <option value="groceries">Groceries</option>
+              <option value="home-decoration">Home-Decoration</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success cate" data-bs-dismiss="modal" onclick="kategori()">Cari</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Add Product -->
+    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Menambahkan Produk</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="produk" class="form-label">Nama Produk : </label>
+                <input type="text" class="form-control" id="produk" />
+              </div>
+              <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi : </label>
+                <input type="text" class="form-control" id="deskripsi" />
+              </div>
+              <div class="mb-3">
+                <label for="kategori" class="form-label">Kategori : </label>
+                <select class="form-select" aria-label="Default select example" id="selected">
+                  <option selected disabled>Pilih Kategori</option>
+                  <option value="smartphones">Smartphones</option>
+                  <option value="laptops">Laptops</option>
+                  <option value="fragrances">Fragrances</option>
+                  <option value="skincare">Skincare</option>
+                  <option value="groceries">Groceries</option>
+                  <option value="home-decoration">Home-Decoration</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn add btn-success" data-bs-dismiss="modal" onclick="addproduk()">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Update -->
+    <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Mengubah Produk</h1>
+          </div>
+          <div class="modal-body">
+            <form>
+              <input type="text" class="form control ho" hidden id="ide" />
+              <div class="mb-3">
+                <label for="produk" class="form-label">Nama Produk : </label>
+                <input type="text" class="form-control ha" id="produki" />
+              </div>
+              <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi : </label>
+                <input type="text" class="form-control hi" id="deskripsie" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn update btn-success" data-bs-dismiss="modal" onclick="ubahproduk()">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Delete -->
+    <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Pilih Id Yang Akan Dihapus</h1>
+          </div>
+          <div class="modal-body">
+            <select class="form-select" aria-label="Default select example" id="ie">
+              <option selected disabled hidden>Pilih Id</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger del" data-bs-dismiss="modal" onclick="hapusproduk()">Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Add Pelanggan -->
+    <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Menambahkan Pelanggan</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="pelanggan" class="form-label">Nama Pelanggan : </label>
+                <input type="text" class="form-control" id="pelanggan" />
+              </div>
+              <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat : </label>
+                <input type="text" class="form-control" id="alamat" />
+              </div>
+              <div class="mb-3">
+                <label for="telp" class="form-label">No Telp : </label>
+                <input type="number" class="form-control" id="telp" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn addplgn btn-success" data-bs-dismiss="modal" onclick="addplgn()">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Mengubah Pelanggan</h1>
+          </div>
+          <div class="modal-body">
+            <form>
+              <input type="text" class="form control be" hidden id="idey" />
+              <div class="mb-3">
+                <label for="pelanggan" class="form-label">Nama Pelanggan : </label>
+                <input type="text" class="form-control ba" id="pelanggani" />
+              </div>
+              <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat : </label>
+                <input type="text" class="form-control bi" id="alamate" />
+              </div>
+              <div class="mb-3">
+                <label for="telp" class="form-label">No Telp : </label>
+                <input type="number" class="form-control bo" id="telpe" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn updateplgn btn-success" data-bs-dismiss="modal" onclick="ubahplgn()">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
